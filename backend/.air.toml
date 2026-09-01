@@ -1,0 +1,22 @@
+# 复制到 ../sub2api/backend/.air.toml
+# 别提交进 fork 仓库,加进 .git/info/exclude 即可:
+#   echo "backend/.air.toml" >> .git/info/exclude
+#   echo "backend/tmp/"      >> .git/info/exclude
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -tags embed -o ./tmp/sub2api ./cmd/server"
+  bin = "./tmp/sub2api"
+  include_ext = ["go", "tpl", "tmpl", "yaml"]
+  exclude_dir = ["tmp", "bin"]
+  exclude_regex = ["_test\\.go", "_gen\\.go"]
+  delay = 1000
+  stop_on_error = true
+
+[log]
+  time = true
+
+[misc]
+  clean_on_exit = true
