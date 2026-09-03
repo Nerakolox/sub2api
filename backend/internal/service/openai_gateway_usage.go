@@ -30,6 +30,7 @@ type OpenAIRecordUsageInput struct {
 	UserAgent          string // 请求的 User-Agent
 	IPAddress          string // 请求的客户端 IP 地址
 	SessionID          string // 客户端显式会话标识（session_id / X-Session-Id 等请求头），仅用于用量行会话关联
+	TpClientRef        string // X-Tp-Client-Ref header 值，非法或缺失时为空字符串，写库前转为 NULL
 	RequestPayloadHash string
 	APIKeyService      APIKeyQuotaUpdater
 	QuotaPlatform      string // user×platform quota platform resolved by the handler before async billing.
@@ -415,6 +416,7 @@ func (s *OpenAIGatewayService) RecordUsage(ctx context.Context, input *OpenAIRec
 
 	// 添加 SessionID（客户端显式会话标识；缺失/无效时保持 nil）
 	usageLog.SessionID = optionalTrimmedStringPtr(input.SessionID)
+	usageLog.TpClientRef = optionalTrimmedStringPtr(input.TpClientRef)
 
 	if apiKey.GroupID != nil {
 		usageLog.GroupID = apiKey.GroupID

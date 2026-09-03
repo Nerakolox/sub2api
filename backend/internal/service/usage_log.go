@@ -186,6 +186,9 @@ type UsageLog struct {
 	// (e.g. the session_id / X-Session-Id headers). Nil when the client sent no
 	// valid session header. It is never derived from prompt_cache_key or content.
 	SessionID *string
+	// TpClientRef: New API 出站注入的客户归因标识，格式 "<user_id>:<token_id>"（SPEC §3.2）。
+	// Nil 表示请求来自未升级的 New API 版本或字段缺失/非法。
+	TpClientRef *string
 
 	// Cache TTL Override 标记（管理员强制替换了缓存 TTL 计费）
 	CacheTTLOverridden bool

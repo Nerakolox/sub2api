@@ -308,6 +308,10 @@ func (h *OpenAIGatewayHandler) recordGrokVoiceUsage(
 	userAgent := c.GetHeader("User-Agent")
 	clientIP := ip.GetClientIP(c)
 	sessionID := service.ExtractClientSessionID(c)
+	tpClientRef := strings.TrimSpace(c.GetHeader("X-Tp-Client-Ref"))
+	if len(tpClientRef) > 64 {
+		tpClientRef = "" // 超长视为非法，落 NULL（SPEC §3.2）
+	}
 	requestPayloadHash := service.HashUsageRequestPayload(body)
 	if requestPayloadHash == "" {
 		requestPayloadHash = service.HashUsageRequestPayload([]byte(endpoint))
@@ -335,6 +339,7 @@ func (h *OpenAIGatewayHandler) recordGrokVoiceUsage(
 			APIKeyService:      h.apiKeyService,
 			QuotaPlatform:      quotaPlatform,
 			SessionID:          sessionID,
+			TpClientRef:        tpClientRef,
 			ChannelUsageFields: clientRequestedUsageFields(c, service.ChannelMappingResult{}, model, result.UpstreamModel),
 		}); err != nil {
 			logger.L().With(

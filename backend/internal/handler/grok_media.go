@@ -660,6 +660,10 @@ func recordGrokMediaUsage(
 	userAgent := c.GetHeader("User-Agent")
 	clientIP := ip.GetClientIP(c)
 	sessionID := service.ExtractClientSessionID(c)
+	tpClientRef := strings.TrimSpace(c.GetHeader("X-Tp-Client-Ref"))
+	if len(tpClientRef) > 64 {
+		tpClientRef = "" // 超长视为非法，落 NULL（SPEC §3.2）
+	}
 	payloadForHash := body
 	if len(payloadForHash) == 0 && strings.TrimSpace(requestID) != "" {
 		payloadForHash = []byte(requestID)
@@ -701,6 +705,7 @@ func recordGrokMediaUsage(
 			APIKeyService:      h.apiKeyService,
 			QuotaPlatform:      quotaPlatform,
 			SessionID:          sessionID,
+			TpClientRef:        tpClientRef,
 			ChannelUsageFields: channelUsageFields,
 		}); err != nil {
 			if videoTaskID != "" {
