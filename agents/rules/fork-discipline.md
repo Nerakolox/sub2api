@@ -78,7 +78,20 @@ remote：
 
 ---
 
-## 7. rebase 前的准备
+## 7. 前端 API 路径约束
+
+**不要在前端 API 调用里硬拼 `/api/v1/` 前缀。**
+
+sub2api 后端路由基础路径已经是 `/api/v1`，若前端的 axios baseURL 或 API 客户端也拼了一次前缀，实际请求会变成 `/api/v1/api/v1/...` 导致 404。
+
+规则：
+- 前端 `api/` 目录下的路径字符串从 `/admin/...` 开始，不加 `/api/v1`
+- baseURL 统一在一处配置（通常是 axios 实例），路径函数不重复拼前缀
+- 新增接口写完后，用浏览器 DevTools Network 面板或 curl 确认实际请求 URL 是否正确，再提交
+
+---
+
+## 8. rebase 前的准备
 
 1. 建备份分支（`tokenports-backup-<日期>`）
 2. 读一遍台账，回顾每条改动的意图

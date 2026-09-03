@@ -10,6 +10,7 @@
 | 文件 | 内容 |
 |------|------|
 | [fork-discipline.md](./fork-discipline.md) | 分支模型、commit 纪律、最小侵入、台账义务 |
+| [git-commits.md](./git-commits.md) | Conventional Commits 格式与本仓 scope 速查表 |
 | [tokenports-scope.md](./tokenports-scope.md) | 本仓在架构里的职责边界、计费配置约定、隐形开关 |
 | [upstream-constraints.md](./upstream-constraints.md) | 上游工具链与工程约定（ent / pnpm / Go 版本 / 已知坑） |
 
