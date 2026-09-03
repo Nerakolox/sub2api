@@ -44293,6 +44293,7 @@ type UsageLogMutation struct {
 	video_duration_seconds       *int
 	addvideo_duration_seconds    *int
 	cache_ttl_overridden         *bool
+	tp_client_ref                *string
 	created_at                   *time.Time
 	clearedFields                map[string]struct{}
 	user                         *int64
@@ -46775,6 +46776,55 @@ func (m *UsageLogMutation) ResetCacheTTLOverridden() {
 	m.cache_ttl_overridden = nil
 }
 
+// SetTpClientRef sets the "tp_client_ref" field.
+func (m *UsageLogMutation) SetTpClientRef(s string) {
+	m.tp_client_ref = &s
+}
+
+// TpClientRef returns the value of the "tp_client_ref" field in the mutation.
+func (m *UsageLogMutation) TpClientRef() (r string, exists bool) {
+	v := m.tp_client_ref
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTpClientRef returns the old "tp_client_ref" field's value of the UsageLog entity.
+// If the UsageLog object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UsageLogMutation) OldTpClientRef(ctx context.Context) (v *string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTpClientRef is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTpClientRef requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTpClientRef: %w", err)
+	}
+	return oldValue.TpClientRef, nil
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (m *UsageLogMutation) ClearTpClientRef() {
+	m.tp_client_ref = nil
+	m.clearedFields[usagelog.FieldTpClientRef] = struct{}{}
+}
+
+// TpClientRefCleared returns if the "tp_client_ref" field was cleared in this mutation.
+func (m *UsageLogMutation) TpClientRefCleared() bool {
+	_, ok := m.clearedFields[usagelog.FieldTpClientRef]
+	return ok
+}
+
+// ResetTpClientRef resets all changes to the "tp_client_ref" field.
+func (m *UsageLogMutation) ResetTpClientRef() {
+	m.tp_client_ref = nil
+	delete(m.clearedFields, usagelog.FieldTpClientRef)
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (m *UsageLogMutation) SetCreatedAt(t time.Time) {
 	m.created_at = &t
@@ -46980,7 +47030,7 @@ func (m *UsageLogMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UsageLogMutation) Fields() []string {
-	fields := make([]string, 0, 47)
+	fields := make([]string, 0, 48)
 	if m.user != nil {
 		fields = append(fields, usagelog.FieldUserID)
 	}
@@ -47119,6 +47169,9 @@ func (m *UsageLogMutation) Fields() []string {
 	if m.cache_ttl_overridden != nil {
 		fields = append(fields, usagelog.FieldCacheTTLOverridden)
 	}
+	if m.tp_client_ref != nil {
+		fields = append(fields, usagelog.FieldTpClientRef)
+	}
 	if m.created_at != nil {
 		fields = append(fields, usagelog.FieldCreatedAt)
 	}
@@ -47222,6 +47275,8 @@ func (m *UsageLogMutation) Field(name string) (ent.Value, bool) {
 		return m.VideoDurationSeconds()
 	case usagelog.FieldCacheTTLOverridden:
 		return m.CacheTTLOverridden()
+	case usagelog.FieldTpClientRef:
+		return m.TpClientRef()
 	case usagelog.FieldCreatedAt:
 		return m.CreatedAt()
 	}
@@ -47325,6 +47380,8 @@ func (m *UsageLogMutation) OldField(ctx context.Context, name string) (ent.Value
 		return m.OldVideoDurationSeconds(ctx)
 	case usagelog.FieldCacheTTLOverridden:
 		return m.OldCacheTTLOverridden(ctx)
+	case usagelog.FieldTpClientRef:
+		return m.OldTpClientRef(ctx)
 	case usagelog.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
 	}
@@ -47657,6 +47714,13 @@ func (m *UsageLogMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCacheTTLOverridden(v)
+		return nil
+	case usagelog.FieldTpClientRef:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTpClientRef(v)
 		return nil
 	case usagelog.FieldCreatedAt:
 		v, ok := value.(time.Time)
@@ -48016,6 +48080,9 @@ func (m *UsageLogMutation) ClearedFields() []string {
 	if m.FieldCleared(usagelog.FieldVideoDurationSeconds) {
 		fields = append(fields, usagelog.FieldVideoDurationSeconds)
 	}
+	if m.FieldCleared(usagelog.FieldTpClientRef) {
+		fields = append(fields, usagelog.FieldTpClientRef)
+	}
 	return fields
 }
 
@@ -48095,6 +48162,9 @@ func (m *UsageLogMutation) ClearField(name string) error {
 		return nil
 	case usagelog.FieldVideoDurationSeconds:
 		m.ClearVideoDurationSeconds()
+		return nil
+	case usagelog.FieldTpClientRef:
+		m.ClearTpClientRef()
 		return nil
 	}
 	return fmt.Errorf("unknown UsageLog nullable field %s", name)
@@ -48241,6 +48311,9 @@ func (m *UsageLogMutation) ResetField(name string) error {
 		return nil
 	case usagelog.FieldCacheTTLOverridden:
 		m.ResetCacheTTLOverridden()
+		return nil
+	case usagelog.FieldTpClientRef:
+		m.ResetTpClientRef()
 		return nil
 	case usagelog.FieldCreatedAt:
 		m.ResetCreatedAt()

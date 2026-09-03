@@ -2114,8 +2114,12 @@ func init() {
 	usagelogDescCacheTTLOverridden := usagelogFields[45].Descriptor()
 	// usagelog.DefaultCacheTTLOverridden holds the default value on creation for the cache_ttl_overridden field.
 	usagelog.DefaultCacheTTLOverridden = usagelogDescCacheTTLOverridden.Default.(bool)
+	// usagelogDescTpClientRef is the schema descriptor for tp_client_ref field.
+	usagelogDescTpClientRef := usagelogFields[46].Descriptor()
+	// usagelog.TpClientRefValidator is a validator for the "tp_client_ref" field. It is called by the builders before save.
+	usagelog.TpClientRefValidator = usagelogDescTpClientRef.Validators[0].(func(string) error)
 	// usagelogDescCreatedAt is the schema descriptor for created_at field.
-	usagelogDescCreatedAt := usagelogFields[46].Descriptor()
+	usagelogDescCreatedAt := usagelogFields[47].Descriptor()
 	// usagelog.DefaultCreatedAt holds the default value on creation for the created_at field.
 	usagelog.DefaultCreatedAt = usagelogDescCreatedAt.Default.(func() time.Time)
 	userMixin := schema.User{}.Mixin()

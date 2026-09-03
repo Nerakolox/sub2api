@@ -623,6 +623,20 @@ func (_c *UsageLogCreate) SetNillableCacheTTLOverridden(v *bool) *UsageLogCreate
 	return _c
 }
 
+// SetTpClientRef sets the "tp_client_ref" field.
+func (_c *UsageLogCreate) SetTpClientRef(v string) *UsageLogCreate {
+	_c.mutation.SetTpClientRef(v)
+	return _c
+}
+
+// SetNillableTpClientRef sets the "tp_client_ref" field if the given value is not nil.
+func (_c *UsageLogCreate) SetNillableTpClientRef(v *string) *UsageLogCreate {
+	if v != nil {
+		_c.SetTpClientRef(*v)
+	}
+	return _c
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_c *UsageLogCreate) SetCreatedAt(v time.Time) *UsageLogCreate {
 	_c.mutation.SetCreatedAt(v)
@@ -928,6 +942,11 @@ func (_c *UsageLogCreate) check() error {
 	if _, ok := _c.mutation.CacheTTLOverridden(); !ok {
 		return &ValidationError{Name: "cache_ttl_overridden", err: errors.New(`ent: missing required field "UsageLog.cache_ttl_overridden"`)}
 	}
+	if v, ok := _c.mutation.TpClientRef(); ok {
+		if err := usagelog.TpClientRefValidator(v); err != nil {
+			return &ValidationError{Name: "tp_client_ref", err: fmt.Errorf(`ent: validator failed for field "UsageLog.tp_client_ref": %w`, err)}
+		}
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "UsageLog.created_at"`)}
 	}
@@ -1130,6 +1149,10 @@ func (_c *UsageLogCreate) createSpec() (*UsageLog, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.CacheTTLOverridden(); ok {
 		_spec.SetField(usagelog.FieldCacheTTLOverridden, field.TypeBool, value)
 		_node.CacheTTLOverridden = value
+	}
+	if value, ok := _c.mutation.TpClientRef(); ok {
+		_spec.SetField(usagelog.FieldTpClientRef, field.TypeString, value)
+		_node.TpClientRef = &value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(usagelog.FieldCreatedAt, field.TypeTime, value)
@@ -2079,6 +2102,24 @@ func (u *UsageLogUpsert) SetCacheTTLOverridden(v bool) *UsageLogUpsert {
 // UpdateCacheTTLOverridden sets the "cache_ttl_overridden" field to the value that was provided on create.
 func (u *UsageLogUpsert) UpdateCacheTTLOverridden() *UsageLogUpsert {
 	u.SetExcluded(usagelog.FieldCacheTTLOverridden)
+	return u
+}
+
+// SetTpClientRef sets the "tp_client_ref" field.
+func (u *UsageLogUpsert) SetTpClientRef(v string) *UsageLogUpsert {
+	u.Set(usagelog.FieldTpClientRef, v)
+	return u
+}
+
+// UpdateTpClientRef sets the "tp_client_ref" field to the value that was provided on create.
+func (u *UsageLogUpsert) UpdateTpClientRef() *UsageLogUpsert {
+	u.SetExcluded(usagelog.FieldTpClientRef)
+	return u
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (u *UsageLogUpsert) ClearTpClientRef() *UsageLogUpsert {
+	u.SetNull(usagelog.FieldTpClientRef)
 	return u
 }
 
@@ -3069,6 +3110,27 @@ func (u *UsageLogUpsertOne) SetCacheTTLOverridden(v bool) *UsageLogUpsertOne {
 func (u *UsageLogUpsertOne) UpdateCacheTTLOverridden() *UsageLogUpsertOne {
 	return u.Update(func(s *UsageLogUpsert) {
 		s.UpdateCacheTTLOverridden()
+	})
+}
+
+// SetTpClientRef sets the "tp_client_ref" field.
+func (u *UsageLogUpsertOne) SetTpClientRef(v string) *UsageLogUpsertOne {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.SetTpClientRef(v)
+	})
+}
+
+// UpdateTpClientRef sets the "tp_client_ref" field to the value that was provided on create.
+func (u *UsageLogUpsertOne) UpdateTpClientRef() *UsageLogUpsertOne {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.UpdateTpClientRef()
+	})
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (u *UsageLogUpsertOne) ClearTpClientRef() *UsageLogUpsertOne {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.ClearTpClientRef()
 	})
 }
 
@@ -4225,6 +4287,27 @@ func (u *UsageLogUpsertBulk) SetCacheTTLOverridden(v bool) *UsageLogUpsertBulk {
 func (u *UsageLogUpsertBulk) UpdateCacheTTLOverridden() *UsageLogUpsertBulk {
 	return u.Update(func(s *UsageLogUpsert) {
 		s.UpdateCacheTTLOverridden()
+	})
+}
+
+// SetTpClientRef sets the "tp_client_ref" field.
+func (u *UsageLogUpsertBulk) SetTpClientRef(v string) *UsageLogUpsertBulk {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.SetTpClientRef(v)
+	})
+}
+
+// UpdateTpClientRef sets the "tp_client_ref" field to the value that was provided on create.
+func (u *UsageLogUpsertBulk) UpdateTpClientRef() *UsageLogUpsertBulk {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.UpdateTpClientRef()
+	})
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (u *UsageLogUpsertBulk) ClearTpClientRef() *UsageLogUpsertBulk {
+	return u.Update(func(s *UsageLogUpsert) {
+		s.ClearTpClientRef()
 	})
 }
 

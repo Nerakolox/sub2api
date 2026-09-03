@@ -947,6 +947,26 @@ func (_u *UsageLogUpdate) SetNillableCacheTTLOverridden(v *bool) *UsageLogUpdate
 	return _u
 }
 
+// SetTpClientRef sets the "tp_client_ref" field.
+func (_u *UsageLogUpdate) SetTpClientRef(v string) *UsageLogUpdate {
+	_u.mutation.SetTpClientRef(v)
+	return _u
+}
+
+// SetNillableTpClientRef sets the "tp_client_ref" field if the given value is not nil.
+func (_u *UsageLogUpdate) SetNillableTpClientRef(v *string) *UsageLogUpdate {
+	if v != nil {
+		_u.SetTpClientRef(*v)
+	}
+	return _u
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (_u *UsageLogUpdate) ClearTpClientRef() *UsageLogUpdate {
+	_u.mutation.ClearTpClientRef()
+	return _u
+}
+
 // SetUser sets the "user" edge to the User entity.
 func (_u *UsageLogUpdate) SetUser(v *User) *UsageLogUpdate {
 	return _u.SetUserID(v.ID)
@@ -1109,6 +1129,11 @@ func (_u *UsageLogUpdate) check() error {
 	if v, ok := _u.mutation.VideoResolution(); ok {
 		if err := usagelog.VideoResolutionValidator(v); err != nil {
 			return &ValidationError{Name: "video_resolution", err: fmt.Errorf(`ent: validator failed for field "UsageLog.video_resolution": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.TpClientRef(); ok {
+		if err := usagelog.TpClientRefValidator(v); err != nil {
+			return &ValidationError{Name: "tp_client_ref", err: fmt.Errorf(`ent: validator failed for field "UsageLog.tp_client_ref": %w`, err)}
 		}
 	}
 	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
@@ -1380,6 +1405,12 @@ func (_u *UsageLogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.CacheTTLOverridden(); ok {
 		_spec.SetField(usagelog.FieldCacheTTLOverridden, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.TpClientRef(); ok {
+		_spec.SetField(usagelog.FieldTpClientRef, field.TypeString, value)
+	}
+	if _u.mutation.TpClientRefCleared() {
+		_spec.ClearField(usagelog.FieldTpClientRef, field.TypeString)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -2461,6 +2492,26 @@ func (_u *UsageLogUpdateOne) SetNillableCacheTTLOverridden(v *bool) *UsageLogUpd
 	return _u
 }
 
+// SetTpClientRef sets the "tp_client_ref" field.
+func (_u *UsageLogUpdateOne) SetTpClientRef(v string) *UsageLogUpdateOne {
+	_u.mutation.SetTpClientRef(v)
+	return _u
+}
+
+// SetNillableTpClientRef sets the "tp_client_ref" field if the given value is not nil.
+func (_u *UsageLogUpdateOne) SetNillableTpClientRef(v *string) *UsageLogUpdateOne {
+	if v != nil {
+		_u.SetTpClientRef(*v)
+	}
+	return _u
+}
+
+// ClearTpClientRef clears the value of the "tp_client_ref" field.
+func (_u *UsageLogUpdateOne) ClearTpClientRef() *UsageLogUpdateOne {
+	_u.mutation.ClearTpClientRef()
+	return _u
+}
+
 // SetUser sets the "user" edge to the User entity.
 func (_u *UsageLogUpdateOne) SetUser(v *User) *UsageLogUpdateOne {
 	return _u.SetUserID(v.ID)
@@ -2636,6 +2687,11 @@ func (_u *UsageLogUpdateOne) check() error {
 	if v, ok := _u.mutation.VideoResolution(); ok {
 		if err := usagelog.VideoResolutionValidator(v); err != nil {
 			return &ValidationError{Name: "video_resolution", err: fmt.Errorf(`ent: validator failed for field "UsageLog.video_resolution": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.TpClientRef(); ok {
+		if err := usagelog.TpClientRefValidator(v); err != nil {
+			return &ValidationError{Name: "tp_client_ref", err: fmt.Errorf(`ent: validator failed for field "UsageLog.tp_client_ref": %w`, err)}
 		}
 	}
 	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
@@ -2924,6 +2980,12 @@ func (_u *UsageLogUpdateOne) sqlSave(ctx context.Context) (_node *UsageLog, err 
 	}
 	if value, ok := _u.mutation.CacheTTLOverridden(); ok {
 		_spec.SetField(usagelog.FieldCacheTTLOverridden, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.TpClientRef(); ok {
+		_spec.SetField(usagelog.FieldTpClientRef, field.TypeString, value)
+	}
+	if _u.mutation.TpClientRefCleared() {
+		_spec.ClearField(usagelog.FieldTpClientRef, field.TypeString)
 	}
 	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{

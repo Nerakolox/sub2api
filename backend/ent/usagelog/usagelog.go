@@ -106,6 +106,8 @@ const (
 	FieldVideoDurationSeconds = "video_duration_seconds"
 	// FieldCacheTTLOverridden holds the string denoting the cache_ttl_overridden field in the database.
 	FieldCacheTTLOverridden = "cache_ttl_overridden"
+	// FieldTpClientRef holds the string denoting the tp_client_ref field in the database.
+	FieldTpClientRef = "tp_client_ref"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// EdgeUser holds the string denoting the user edge name in mutations.
@@ -206,6 +208,7 @@ var Columns = []string{
 	FieldVideoResolution,
 	FieldVideoDurationSeconds,
 	FieldCacheTTLOverridden,
+	FieldTpClientRef,
 	FieldCreatedAt,
 }
 
@@ -288,6 +291,8 @@ var (
 	VideoResolutionValidator func(string) error
 	// DefaultCacheTTLOverridden holds the default value on creation for the "cache_ttl_overridden" field.
 	DefaultCacheTTLOverridden bool
+	// TpClientRefValidator is a validator for the "tp_client_ref" field. It is called by the builders before save.
+	TpClientRefValidator func(string) error
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 )
@@ -523,6 +528,11 @@ func ByVideoDurationSeconds(opts ...sql.OrderTermOption) OrderOption {
 // ByCacheTTLOverridden orders the results by the cache_ttl_overridden field.
 func ByCacheTTLOverridden(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCacheTTLOverridden, opts...).ToFunc()
+}
+
+// ByTpClientRef orders the results by the tp_client_ref field.
+func ByTpClientRef(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTpClientRef, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

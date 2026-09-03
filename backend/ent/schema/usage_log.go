@@ -181,6 +181,13 @@ func (UsageLog) Fields() []ent.Field {
 		field.Bool("cache_ttl_overridden").
 			Default(false),
 
+		// tp_client_ref: New API 出站注入的客户归因标识，格式 "<user_id>:<token_id>"（SPEC §3.2）。
+		// NULL 表示请求来自未升级的 New API 版本或字段缺失/非法，不报错不拒绝。
+		field.String("tp_client_ref").
+			MaxLen(64).
+			Optional().
+			Nillable(),
+
 		// 时间戳（只有 created_at，日志不可修改）
 		field.Time("created_at").
 			Default(time.Now).
@@ -235,5 +242,6 @@ func (UsageLog) Indexes() []ent.Index {
 		index.Fields("api_key_id", "created_at"),
 		// 分组维度时间范围查询（线上由 SQL 迁移创建 group_id IS NOT NULL 的部分索引）
 		index.Fields("group_id", "created_at"),
+		index.Fields("tp_client_ref"),
 	}
 }

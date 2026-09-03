@@ -280,6 +280,11 @@ func CacheTTLOverridden(v bool) predicate.UsageLog {
 	return predicate.UsageLog(sql.FieldEQ(FieldCacheTTLOverridden, v))
 }
 
+// TpClientRef applies equality check predicate on the "tp_client_ref" field. It's identical to TpClientRefEQ.
+func TpClientRef(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldEQ(FieldTpClientRef, v))
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.UsageLog {
 	return predicate.UsageLog(sql.FieldEQ(FieldCreatedAt, v))
@@ -2458,6 +2463,81 @@ func CacheTTLOverriddenEQ(v bool) predicate.UsageLog {
 // CacheTTLOverriddenNEQ applies the NEQ predicate on the "cache_ttl_overridden" field.
 func CacheTTLOverriddenNEQ(v bool) predicate.UsageLog {
 	return predicate.UsageLog(sql.FieldNEQ(FieldCacheTTLOverridden, v))
+}
+
+// TpClientRefEQ applies the EQ predicate on the "tp_client_ref" field.
+func TpClientRefEQ(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldEQ(FieldTpClientRef, v))
+}
+
+// TpClientRefNEQ applies the NEQ predicate on the "tp_client_ref" field.
+func TpClientRefNEQ(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldNEQ(FieldTpClientRef, v))
+}
+
+// TpClientRefIn applies the In predicate on the "tp_client_ref" field.
+func TpClientRefIn(vs ...string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldIn(FieldTpClientRef, vs...))
+}
+
+// TpClientRefNotIn applies the NotIn predicate on the "tp_client_ref" field.
+func TpClientRefNotIn(vs ...string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldNotIn(FieldTpClientRef, vs...))
+}
+
+// TpClientRefGT applies the GT predicate on the "tp_client_ref" field.
+func TpClientRefGT(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldGT(FieldTpClientRef, v))
+}
+
+// TpClientRefGTE applies the GTE predicate on the "tp_client_ref" field.
+func TpClientRefGTE(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldGTE(FieldTpClientRef, v))
+}
+
+// TpClientRefLT applies the LT predicate on the "tp_client_ref" field.
+func TpClientRefLT(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldLT(FieldTpClientRef, v))
+}
+
+// TpClientRefLTE applies the LTE predicate on the "tp_client_ref" field.
+func TpClientRefLTE(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldLTE(FieldTpClientRef, v))
+}
+
+// TpClientRefContains applies the Contains predicate on the "tp_client_ref" field.
+func TpClientRefContains(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldContains(FieldTpClientRef, v))
+}
+
+// TpClientRefHasPrefix applies the HasPrefix predicate on the "tp_client_ref" field.
+func TpClientRefHasPrefix(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldHasPrefix(FieldTpClientRef, v))
+}
+
+// TpClientRefHasSuffix applies the HasSuffix predicate on the "tp_client_ref" field.
+func TpClientRefHasSuffix(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldHasSuffix(FieldTpClientRef, v))
+}
+
+// TpClientRefIsNil applies the IsNil predicate on the "tp_client_ref" field.
+func TpClientRefIsNil() predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldIsNull(FieldTpClientRef))
+}
+
+// TpClientRefNotNil applies the NotNil predicate on the "tp_client_ref" field.
+func TpClientRefNotNil() predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldNotNull(FieldTpClientRef))
+}
+
+// TpClientRefEqualFold applies the EqualFold predicate on the "tp_client_ref" field.
+func TpClientRefEqualFold(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldEqualFold(FieldTpClientRef, v))
+}
+
+// TpClientRefContainsFold applies the ContainsFold predicate on the "tp_client_ref" field.
+func TpClientRefContainsFold(v string) predicate.UsageLog {
+	return predicate.UsageLog(sql.FieldContainsFold(FieldTpClientRef, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
