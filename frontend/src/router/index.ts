@@ -635,6 +635,17 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/admin/cost-report',
+    name: 'CostReport',
+    component: () => import('@/views/admin/CostReportView.vue'),
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true,
+      title: '成本报告',
+      titleKey: 'nav.costReport'
+    }
+  },
+  {
     path: '/admin/affiliates',
     redirect: '/admin/affiliates/invites'
   },
