@@ -94,6 +94,9 @@ func RegisterAdminRoutes(
 		// 使用记录管理
 		registerUsageRoutes(admin, h)
 
+		// 成本报表（Tokenports §1.6 §1.8 §3.6）
+		registerCostReportRoutes(admin, h)
+
 		// 用户属性管理
 		registerUserAttributeRoutes(admin, h)
 
@@ -697,6 +700,15 @@ func registerUsageRoutes(admin *gin.RouterGroup, h *handler.Handlers) {
 		usage.GET("/cleanup-tasks", h.Admin.Usage.ListCleanupTasks)
 		usage.POST("/cleanup-tasks", h.Admin.Usage.CreateCleanupTask)
 		usage.POST("/cleanup-tasks/:id/cancel", h.Admin.Usage.CancelCleanupTask)
+	}
+}
+
+// registerCostReportRoutes 注册成本报表路由（Tokenports §1.6 §1.8 §3.6）
+func registerCostReportRoutes(admin *gin.RouterGroup, h *handler.Handlers) {
+	reports := admin.Group("/reports/cost")
+	{
+		reports.GET("/by-model", h.Admin.CostReport.GetCostByModel)
+		reports.GET("/by-client", h.Admin.CostReport.GetCostByClient)
 	}
 }
 
